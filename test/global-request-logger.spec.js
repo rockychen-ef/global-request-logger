@@ -6,6 +6,7 @@ var
   http          = require('http'),
   https         = require('https'),
   events        = require('events'),
+  stream        = require('stream'),
   _             = require('lodash'),
   globalLogger  = require('../index')
   ;
@@ -148,6 +149,24 @@ describe('Global Request Logger', function () {
         req.write('Write to the body');
         globalLogger.once('success', function (req, res) {
           res.should.have.property('body', 'Ex');
+          done();
+        });
+      });
+
+      it('should combine chunked request body data', function (done) {
+        nock('http://www.example.com')
+          .get('/')
+          .reply(200, 'Example');
+
+        globalLogger.maxBodyLength = Infinity;
+        var req = http.get('http://www.example.com');
+        req.write('Write');
+        req.write('To');
+        req.write('The');
+        req.write('Body');
+
+        globalLogger.once('success', function (req, res) {
+          req.should.have.property('body', 'WriteToTheBody');
           done();
         });
       });

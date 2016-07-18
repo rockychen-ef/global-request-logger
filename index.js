@@ -75,7 +75,7 @@ function attachLoggersToRequest(protocol, options, callback) {
   });
 
   req.on('response', function (res) {
-    logInfo.request.body = requestData.toString();
+    logInfo.request.body = requestData.join('');
     _.assign(logInfo.response, _.pick(res, 'statusCode', 'headers', 'trailers', 'httpVersion', 'url', 'method'));
 
     var responseData = [];
@@ -83,7 +83,7 @@ function attachLoggersToRequest(protocol, options, callback) {
       logBodyChunk(responseData, data);
     });
     res.on('end', function () {
-      logInfo.response.body = responseData.toString();
+      logInfo.response.body = responseData.join('');
       globalLogSingleton.emit('success', logInfo.request, logInfo.response);
     });
     res.on('error', function (error) {
