@@ -1,6 +1,4 @@
-# Node.js Global Request Logger
-
-[![Build Status](https://secure.travis-ci.org/meetearnest/global-request-logger.png)](http://travis-ci.org/meetearnest/global-request-logger)
+# Node.js Global Request Logger [![Build Status](https://app.snap-ci.com/meetearnest/global-request-logger/branch/master/build_image)](https://app.snap-ci.com/meetearnest/global-request-logger/branch/master)
 
 This module configures the [`http`](http://nodejs.org/api/http.html) and [`https`](http://nodejs.org/api/https.html) 
 modules to raise logging events for every outgoing http request.
