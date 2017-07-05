@@ -1,6 +1,8 @@
-# Node.js Global Request Logger [![Build Status](https://app.snap-ci.com/meetearnest/global-request-logger/branch/master/build_image)](https://app.snap-ci.com/meetearnest/global-request-logger/branch/master)
+# Node.js Global Request Logger
 
-This module configures the [`http`](http://nodejs.org/api/http.html) and [`https`](http://nodejs.org/api/https.html) 
+This is a publicly available library published by Earnest.
+
+This public module configures the [`http`](http://nodejs.org/api/http.html) and [`https`](http://nodejs.org/api/https.html) 
 modules to raise logging events for every outgoing http request.
 
 Any library or module that uses the default `http` and `https` modules will be captured. The primary use case is for 
@@ -93,7 +95,27 @@ The `initialize` function accepts an options argument that can configure logging
  
 - **maxBodyLength** - The maximum length (in bytes) to log for a request or response body.
 
+# Contributing
+
+To get started, take a look at the output of `./go help`.
+Then, run `./go` to configure the environment and dependencies.
+
+## Getting Started:
+Usage: ./go <command>
+
+Available commands are:
+    help              Show this help
+    exec              Execute any command inside the dev image
+    nuke              Destroy all your running containers
+    prepush           Run prepush checks (e.g. test, lint)
+    test              Run all tests
+    test:watch        Run tests in watch mode
+    install           Install dependencies
+    lint              Lint the repository
+    lint:fix          Lint in fix mode
+
+You can pass any of those as an argument to run the related task in this repository. 
 
 ## Testing
 
-Unit tests are provided and can be run via `npm test`
+Use either `./go test` or `./go test:unit` to run 

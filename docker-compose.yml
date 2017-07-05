@@ -1,0 +1,16 @@
+version: "3"
+
+volumes:
+  node_modules:
+    labels:
+      com.earnest.description: "Data only volume for installed node dependencies"
+
+services:
+  dev:
+    build: .
+    labels:
+      com.earnest.description: "Global request logging library dev environment"
+      com.earnest.public: ""
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
