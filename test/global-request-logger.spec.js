@@ -3,6 +3,7 @@
 
 const should        = require('chai').should();
 const http          = require('http');
+const fetch         = require('node-fetch');
 const _             = require('lodash');
 const globalLogger  = require('../index');
 
@@ -64,6 +65,9 @@ describe('Global Request Logger', function () {
       before(function () {
         globalLogger.initialize();
         nock.disableNetConnect();
+      });
+      afterEach(function () {
+        nock.cleanAll();
       });
       after(function () {
         globalLogger.end();
@@ -158,6 +162,26 @@ describe('Global Request Logger', function () {
 
         globalLogger.once('success', function (req, res) {
           req.should.have.property('body', 'WriteToTheBody');
+          done();
+        });
+      });
+
+      it('should log request success with https', function (done) {
+        nock('https://www.example.com')
+          .get('/')
+          .reply(200, 'Example');
+
+        fetch('https://www.example.com');
+
+        globalLogger.once('success', function (req, res) {
+          should.exist(req);
+          req.should.have.property('method');
+          req.should.have.ownProperty('headers');
+
+          should.exist(res);
+          res.should.have.property('statusCode');
+          res.should.have.property('headers');
+          res.should.have.property('body');
           done();
         });
       });
